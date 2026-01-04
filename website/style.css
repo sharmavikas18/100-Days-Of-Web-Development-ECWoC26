@@ -1203,6 +1203,18 @@ main {
     padding: 3rem 1.5rem 2rem;
     margin-top: auto;
     font-family: var(--font-main);
+    position: relative;
+    overflow: hidden;
+}
+
+.main-footer::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--border-color), transparent);
 }
 
 .footer-grid {
@@ -1211,6 +1223,8 @@ main {
     gap: 4rem;
     max-width: var(--container-width);
     margin: 0 auto;
+    position: relative;
+    z-index: 1;
 }
 
 /* Specific column weighting for larger screens */
@@ -1225,6 +1239,11 @@ main {
     flex-direction: column;
     align-items: flex-start;
     /* Enforce left alignment */
+    transition: transform 0.3s ease;
+}
+
+.footer-col:hover {
+    transform: translateY(-2px);
 }
 
 .footer-col h4 {
@@ -1235,6 +1254,23 @@ main {
     display: flex;
     align-items: center;
     gap: 0.75rem;
+    transition: all 0.3s ease;
+    position: relative;
+}
+
+.footer-col h4::after {
+    content: '';
+    position: absolute;
+    bottom: -4px;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background: linear-gradient(90deg, var(--text-primary), var(--accent-secondary));
+    transition: width 0.3s ease;
+}
+
+.footer-col:hover h4::after {
+    width: 30px;
 }
 
 .footer-description {
@@ -1244,6 +1280,11 @@ main {
     margin-bottom: 2rem;
     max-width: 300px;
     text-align: left;
+    transition: color 0.3s ease;
+}
+
+.footer-col:hover .footer-description {
+    color: var(--text-primary);
 }
 
 /* Social Icons Row */
@@ -1262,14 +1303,37 @@ main {
     align-items: center;
     justify-content: center;
     color: var(--text-secondary);
-    transition: all 0.2s ease;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    overflow: hidden;
+}
+
+.social-link::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    background: radial-gradient(circle, rgba(255, 255, 255, 0.1) 0%, transparent 70%);
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    transition: all 0.4s ease;
+    opacity: 0;
+}
+
+.social-link:hover::before {
+    width: 100px;
+    height: 100px;
+    opacity: 1;
 }
 
 .social-link:hover {
     background: var(--text-primary);
     color: var(--bg-primary);
     border-color: var(--text-primary);
-    transform: translateY(-2px);
+    transform: translateY(-3px) scale(1.05);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3), 0 0 20px rgba(255, 255, 255, 0.1);
 }
 
 /* Links List */
@@ -1286,25 +1350,46 @@ main {
 .footer-links a {
     color: var(--text-secondary);
     text-decoration: none;
-    transition: all 0.2s;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     display: flex;
     align-items: center;
     gap: 0.6rem;
     font-size: 0.95rem;
+    position: relative;
+    padding: 0.25rem 0;
+}
+
+.footer-links a::before {
+    content: '';
+    position: absolute;
+    left: -8px;
+    top: 50%;
+    width: 3px;
+    height: 0;
+    background: linear-gradient(45deg, var(--text-primary), var(--accent-secondary));
+    border-radius: 2px;
+    transform: translateY(-50%);
+    transition: height 0.3s ease;
+}
+
+.footer-links a:hover::before {
+    height: 100%;
 }
 
 .footer-links a:hover {
     color: var(--text-primary);
-    transform: translateX(4px);
+    transform: translateX(8px);
+    text-shadow: 0 0 8px rgba(255, 255, 255, 0.1);
 }
 
 .footer-links a svg {
     color: var(--text-tertiary);
-    transition: color 0.2s;
+    transition: all 0.3s ease;
 }
 
 .footer-links a:hover svg {
     color: var(--accent-primary);
+    transform: rotate(5deg) scale(1.1);
 }
 
 /* Usage Tags */
@@ -1321,6 +1406,30 @@ main {
     font-weight: 600;
     letter-spacing: 0.5px;
     text-transform: uppercase;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    overflow: hidden;
+    cursor: pointer;
+}
+
+.tech-tag::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+    transition: left 0.5s ease;
+}
+
+.tech-tag:hover::before {
+    left: 100%;
+}
+
+.tech-tag:hover {
+    transform: translateY(-2px) scale(1.05);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
 }
 
 .tag-html {
@@ -1329,16 +1438,34 @@ main {
     border: 1px solid rgba(227, 76, 38, 0.2);
 }
 
+.tag-html:hover {
+    background: rgba(227, 76, 38, 0.15);
+    border-color: rgba(227, 76, 38, 0.4);
+    box-shadow: 0 4px 15px rgba(227, 76, 38, 0.2);
+}
+
 .tag-css {
     background: rgba(38, 77, 228, 0.1);
     color: #264de4;
     border: 1px solid rgba(38, 77, 228, 0.2);
 }
 
+.tag-css:hover {
+    background: rgba(38, 77, 228, 0.15);
+    border-color: rgba(38, 77, 228, 0.4);
+    box-shadow: 0 4px 15px rgba(38, 77, 228, 0.2);
+}
+
 .tag-js {
     background: rgba(247, 223, 30, 0.1);
     color: #f7df1e;
     border: 1px solid rgba(247, 223, 30, 0.2);
+}
+
+.tag-js:hover {
+    background: rgba(247, 223, 30, 0.15);
+    border-color: rgba(247, 223, 30, 0.4);
+    box-shadow: 0 4px 15px rgba(247, 223, 30, 0.2);
 }
 
 /* Legal Pills */
@@ -1358,13 +1485,32 @@ main {
     text-decoration: none;
     font-size: 0.85rem;
     text-align: center;
-    transition: all 0.2s;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    overflow: hidden;
+}
+
+.legal-btn::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.05), transparent);
+    transition: left 0.4s ease;
+}
+
+.legal-btn:hover::before {
+    left: 100%;
 }
 
 .legal-btn:hover {
     background: var(--bg-hover);
     color: var(--text-primary);
     border-color: var(--text-tertiary);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
 }
 
 /* Copyright Row */
@@ -1392,10 +1538,29 @@ main {
     color: var(--text-secondary);
     text-decoration: none;
     border-bottom: 1px solid transparent;
+    transition: all 0.3s ease;
+    position: relative;
+}
+
+.created-by a::before {
+    content: '';
+    position: absolute;
+    bottom: -1px;
+    left: 0;
+    width: 0;
+    height: 1px;
+    background: linear-gradient(90deg, var(--text-secondary), var(--accent-secondary));
+    transition: width 0.3s ease;
+}
+
+.created-by a:hover::before {
+    width: 100%;
 }
 
 .created-by a:hover {
-    border-bottom-color: var(--text-secondary);
+    color: var(--text-primary);
+    transform: translateY(-1px);
+    text-shadow: 0 0 8px rgba(255, 255, 255, 0.1);
 }
 
 
